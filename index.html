@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert To Binary</title>
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --input-bg: #ffffff;
+            --border-color: #2ecc71;
+            --gradient: linear-gradient(135deg, rgb(4, 0, 64), rgb(0, 0, 116), blue, cyan);
+        }
+
+        body {
+            font-family: "arial black", sans-serif;
+            padding-top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .div {
+            width: 250px;
+            height: 40px;
+            position: relative;
+        }
+
+        #num {
+            width: 100%;
+            height: 100%;
+            font-size: 23px;
+            text-align: center;
+            border-radius: 25px;
+            font-weight: 900;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--input-bg), var(--input-bg)) padding-box,
+                var(--gradient) border-box;
+            color: var(--text-color);
+        }
+
+        label {
+            position: absolute;
+            top: 33%;
+            left: 27%;
+            color: gray;
+            font-weight: 900;
+            cursor: text;
+            font-family: "arial black", sans-serif;
+            transition: 250ms;
+        }
+
+        .div input:focus+label,
+        .div input:valid+label {
+            top: -25%;
+            left: 25%;
+            background: var(--bg-color);
+            padding: 0px 5px;
+        }
+
+        button {
+            padding: 10px 40px;
+            border-radius: 10px;
+            border: 3px solid var(--border-color);
+            color: var(--border-color);
+            background: none;
+            font-weight: 900;
+            transition: 300ms;
+            margin-top: 20px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        button:hover {
+            background-color: var(--border-color);
+            color: #fff;
+        }
+
+        button:active {
+            transform: scale(0.925);
+        }
+
+        #bin {
+            margin-top: 40px;
+            min-height: 60px;
+            width: 300px;
+            border: 3px solid var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            font-weight: bold;
+            word-break: break-word;
+            text-align: center;
+            border-radius: 20px;
+            transition: border-color 0.3s, color 0.3s;
+        }
+
+        /* Dark mode variables */
+        body.dark {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --input-bg: #1f1f1f;
+            --border-color: #00e676;
+            --gradient: linear-gradient(135deg, #0d47a1, #1976d2, #00bcd4, #00e676);
+        }
+
+        /* Dark mode toggle */
+        #toggleDark {
+            margin-top: 15px;
+            padding: 8px 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="toggleDark" onclick="toggleDarkMode()" style="margin: 50px;">Toggle Dark Mode</button>
+
+    <div class="div">
+        <input type="number" id="num" required>
+        <label for="num">Enter a number</label>
+    </div><br><br>
+
+    <button onclick="convert()">CONVERT</button>
+    
+
+    <div id="bin">Binary output will appear here</div>
+
+    <script>
+        function convert() {
+            let num = parseInt(document.getElementById("num").value);
+
+            if (isNaN(num) || num < 0) {
+                document.getElementById("bin").innerHTML = "Enter a valid positive number";
+                return;
+            }
+
+            let bin = "";
+
+            if (num === 0) {
+                bin = "0";
+            } else {
+                while (num > 0) {
+                    bin = (num % 2) + bin; // prepend remainder
+                    num = Math.floor(num / 2);
+                }
+            }
+
+            document.getElementById("bin").innerHTML = bin;
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark");
+        }
+    </script>
+
+</body>
+
+</html>
